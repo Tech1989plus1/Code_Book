@@ -5,3 +5,6 @@
 
 # React Navigation
 - Created a [bottom tab bar](./images/bottomTab.png), breaking application into categories
+
+# Search Bar
+- Created a [search bar](./images/searchBar.png),
