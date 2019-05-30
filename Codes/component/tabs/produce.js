@@ -1,13 +1,37 @@
 import React, { Component } from "react";
-import {View,TextInput,StyleSheet, SafeAreaView, ScrollView, Text} from "react-native";
+import {View,TextInput,StyleSheet, SafeAreaView, FlatList, ScrollView} from "react-native";
+import {ListItem} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import {contact as PLU} from '../json/db';
+import Contain from '../API/cotains';
 
 class Produce extends Component {
     constructor(props){
         super(props);
-        this.state = {}
+        this.state = {
+            data: PLU, fullData: PLU, query: ''
+        }
 
     }
+
+    _keyExtractor = (item, index) => index.toString();
+
+    _renderItem = ({item}) => (
+        <ListItem
+            roundAvatar
+            leftAvatar = {{ source: {uri: `${item.image}`}}}
+            title = {item.first_name + " " + item.last_name}
+            subtitle = {item.phone_number} 
+        />
+    );
+
+    _renderSepartor = () => {
+        return (
+            <View style = {{height: 1, width: '86%', backgroundColor: '#CED0CE', marginLeft: "17%"}}/>
+        );
+    }
+
     render() {
         return (
             <SafeAreaView style = {{flex: 1}}>
@@ -23,7 +47,12 @@ class Produce extends Component {
                         </View>
                     </View>
                         <ScrollView>
-                            <Text>Produce</Text>
+                            <FlatList
+                                data={this.state.data}
+                                keyExtractor={this._keyExtractor}
+                                renderItem={this._renderItem}
+                                ItemSeparatorComponent = {this._renderSepartor}
+                            />
                         </ScrollView>
                 </View>
             </SafeAreaView>

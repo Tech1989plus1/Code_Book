@@ -7,4 +7,7 @@
 - Created a [bottom tab bar](./images/bottomTab.png), breaking application into categories
 
 # Search Bar
-- Created a [search bar](./images/searchBar.png),
+- Created a [search bar](./images/searchBar.png)
+
+# DB.json 
+- Created a ramdom json file of contacts to list [fictitious people](./Codes/component/json/db.json) in a contact list.
