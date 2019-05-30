@@ -14,3 +14,6 @@
 
 ### List View
 - Importing the fictitious cotact list into var PLU, and will display [contacts](./images/listItems.png) into center of APP. 
+
+### Contains
+- Inserting [contains](./Codes/component/API/cotains.js) API. Contains allow for the user to filter items not found in the list of PLU or contacts. 

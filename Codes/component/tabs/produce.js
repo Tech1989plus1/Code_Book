@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {View,TextInput,StyleSheet, SafeAreaView, FlatList, ScrollView} from "react-native";
 import {ListItem} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
+import _ from 'lodash';
 
 import {contact as PLU} from '../json/db';
 import Contain from '../API/cotains';
@@ -32,6 +33,15 @@ class Produce extends Component {
         );
     }
 
+    _updateQuery = query => {
+        const formatQuery = query.toLowerCase();
+        const data = _.filter(this.state.fullData, user => {
+            return Contain(user, formatQuery);
+        })
+        
+        this.setState({query: formatQuery, data});
+      };
+
     render() {
         return (
             <SafeAreaView style = {{flex: 1}}>
@@ -42,6 +52,7 @@ class Produce extends Component {
                             <TextInput
                                 placeholder = 'Search ...'
                                 placeholderTextColor = '#b6babf'
+                                onChangeText={this._updateQuery}
                                 style = {styles.inputView}
                             />
                         </View>
