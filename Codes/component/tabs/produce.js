@@ -24,6 +24,7 @@ class Produce extends Component {
             leftAvatar = {{ source: {uri: `${item.image}`}}}
             title = {item.first_name + " " + item.last_name}
             subtitle = {item.phone_number} 
+            rightIcon = {<Icon name = 'ios-bookmark' size = {25} style = {styles.iconBookMarkStyle}/>}
         />
     );
 
@@ -48,7 +49,7 @@ class Produce extends Component {
                 <View style = {{flex: 1}}>
                     <View style = {styles.container}>
                         <View style = {styles.containerTop}>
-                            <Icon name = 'ios-search' size = {20} style = {styles.iconStyle}/>
+                            <Icon name = 'ios-search' size = {25} style = {styles.iconSearchStyle}/>
                             <TextInput
                                 placeholder = 'Search ...'
                                 placeholderTextColor = '#b6babf'
@@ -79,8 +80,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#dddddd'
     },
-    iconStyle:{
-        padding: 10,
+    iconSearchStyle:{
+        padding: 5,
         color: '#4c9ed9'
     },
     inputView: {
@@ -97,5 +98,9 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 0},
         shadowColor: 'black',
         shadowOpacity: 0.2
+    },
+    iconBookMarkStyle:{
+        padding: 5,
+        color: '#b6babf'
     }
 });

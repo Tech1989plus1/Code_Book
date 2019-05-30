@@ -1,36 +1,77 @@
 import React, { Component } from "react";
-import {View,TextInput,StyleSheet, SafeAreaView, ScrollView, Text} from "react-native";
+import {View,TextInput,StyleSheet, SafeAreaView, FlatList, ScrollView} from "react-native";
+import {ListItem} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
+import _ from 'lodash';
 
-class PreFoods extends Component {
+import {contact as PLU} from '../json/db';
+import Contain from '../API/cotains';
+
+class Produce extends Component {
     constructor(props){
         super(props);
-        this.state = {}
+        this.state = {
+            data: PLU, fullData: PLU, query: ''
+        }
 
     }
+
+    _keyExtractor = (item, index) => index.toString();
+
+    _renderItem = ({item}) => (
+        <ListItem
+            roundAvatar
+            leftAvatar = {{ source: {uri: `${item.image}`}}}
+            title = {item.first_name + " " + item.last_name}
+            subtitle = {item.phone_number} 
+            rightIcon = {<Icon name = 'ios-bookmark' size = {25} style = {styles.iconBookMarkStyle}/>}
+        />
+    );
+
+    _renderSepartor = () => {
+        return (
+            <View style = {{height: 1, width: '86%', backgroundColor: '#CED0CE', marginLeft: "17%"}}/>
+        );
+    }
+
+    _updateQuery = query => {
+        const formatQuery = query.toLowerCase();
+        const data = _.filter(this.state.fullData, user => {
+            return Contain(user, formatQuery);
+        })
+        
+        this.setState({query: formatQuery, data});
+      };
+
     render() {
         return (
             <SafeAreaView style = {{flex: 1}}>
                 <View style = {{flex: 1}}>
                     <View style = {styles.container}>
                         <View style = {styles.containerTop}>
-                            <Icon name = 'ios-search' size = {20} style = {styles.iconStyle}/>
+                            <Icon name = 'ios-search' size = {25} style = {styles.iconSearchStyle}/>
                             <TextInput
                                 placeholder = 'Search ...'
                                 placeholderTextColor = '#b6babf'
+                                onChangeText={this._updateQuery}
                                 style = {styles.inputView}
                             />
                         </View>
                     </View>
                         <ScrollView>
-                            <Text>PreFoods</Text>
+                            <FlatList
+                                data={this.state.data}
+                                keyExtractor={this._keyExtractor}
+                                renderItem={this._renderItem}
+                                ItemSeparatorComponent = {this._renderSepartor}
+                            />
                         </ScrollView>
                 </View>
             </SafeAreaView>
         );
     }
 }
-export default PreFoods;
+export default Produce;
 
 const styles = StyleSheet.create({
     container: {
@@ -39,8 +80,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#dddddd'
     },
-    iconStyle:{
-        padding: 10,
+    iconSearchStyle:{
+        padding: 5,
         color: '#4c9ed9'
     },
     inputView: {
@@ -57,5 +98,9 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 0},
         shadowColor: 'black',
         shadowOpacity: 0.2
+    },
+    iconBookMarkStyle:{
+        padding: 5,
+        color: '#b6babf'
     }
 });
